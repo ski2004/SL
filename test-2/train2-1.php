@@ -1,7 +1,8 @@
 <?php
     
 
-
+  $date = array() ;
+  $error = "" ;
   $view = getView();
 
   // 取天數
@@ -22,18 +23,17 @@
 
   // 抓起始日
   function getWeekend($y ,$m){
-    // $b= array( 0, 6, 2, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5 ); // 西元2000各月起始值
     //西元一月一號 12~1月 起始日
     $b = array(  6, 1, 4, 4, 0, 2, 5, 0, 3 , 6, 1, 4 );
     $i= 0 ;                     
     $j = 0 ;
 
-    $i = $b[$m];              // 記算起始值i
+    $i = $b[$m];// 記算起始值i
     $i= $i+($y-1) ;//每年多一天
     $i= $i + floor($y/4)-floor($y/100)+floor($y/400);//遇到幾次閏年 閏年在多加一天
 
     if($m <= 2){
-     if($y%4==0 && $y%100!=0||$y%400==0){ // 當年為閏年則 1 and 2 月 i 要減一
+     if($y%4==0 && $y%100!=0||$y%400==0){ // 當年為閏年則 1 2 月 i 要減一 還沒過
       $i--;  
      }
     }
@@ -42,11 +42,14 @@
   }
  
   function getView(){
-    $y = (isset($_POST["year"]))? $_POST["year"] : "1"  ;
-    $m = (isset($_POST["month"]))? $_POST["month"] : "1"  ;
-    $d = (isset($_POST["day"]))? $_POST["day"] : ""  ;
-    $sort = (isset($_POST["sort"]))? $_POST["sort"] : "ASC"  ;
+   
+    if(!check()) return ;
+
     $Week = array("日","一","二","三","四","五","六" );
+
+    $y = (int)$GLOBALS["date"][0] ;
+    $m = (int)$GLOBALS["date"][1] ;
+    $d = (int)$GLOBALS["date"][2] ;
 
     $Title ="西元" ;
     $Title .= ($d>0)?  $y."年".$m."月".$d."日" :  $y."年".$m."月" ;
@@ -75,7 +78,6 @@
       }
 
       $row++ ;
-      
       if($row>=7){
         $row=0;
         $start=0;
@@ -86,9 +88,24 @@
     $view[] =  "</tr>" ;
     $view[] = "</table>" ;
 
-
     return join("",$view) ;
 
+  }
+
+  // 檢查
+  function check(){
+        
+    switch(true){
+      case (!isset($_POST["date"])):
+      case (empty($_POST["date"])):
+      case ( count(explode("-",$_POST["date"]))!=3):
+        $GLOBALS["error"] = "輸入參數有錯" ;
+        return false ; 
+      default:
+        $GLOBALS["date"] = explode("-",$_POST["date"]) ;
+        return true ;
+
+    }
   }
 
 ?>
@@ -103,16 +120,34 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  
+  <script>
+
+    function getDays(month){
+      console.log(month);
+
+      console.log($("#month").val())
+     
+    }
+  </script>
+  <style>
+    b{
+      color:red ;
+    }
+  </style>
 </head>
 <body>
 <form action="./train2-1.php" method="post" >
     萬年曆:
     <br>
-    <input type="text" name="year" value="" placeholder="ex: 2007" >
-    <input type="text" name="month" value="" placeholder="ex: 2007" >
-    <input type="text" name="day" value="" placeholder="ex: 2007" >
+    <!-- <input type="text" name="year" value="" placeholder="ex: 2007" > -->
+    <!-- <input type="text" name="month" value="" placeholder="ex: 2007" > -->
+    <!-- <input type="text" name="day" value="" placeholder="ex: 2007" > -->
+    <input type="text" name="date" value=""  placeholder="ex: 2007-02-04"> 
+
     <input type="submit" value="輸出">
+    <br>
+    <b><?php echo $error ; ?></b>
+    
     <br>
     <?php echo $view ; ?>
   </form> 
