@@ -5,11 +5,7 @@ class MySql
     // PDO instance
     public $db;
 
-    protected $fetch;
 
-    protected $fetchTimestamp;
-
-    protected $save;
 
     protected $dbhost ="127.0.0.1" ;
     protected $dbUser = "root" ;

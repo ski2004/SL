@@ -3,17 +3,16 @@
   print_r($_POST) ;
   $number = "" ;
   $string = "" ;
-  switch($_POST){
+  switch(true){
     case (isset($_POST["number"])):
-
-    switch(true){
-      case (strlen($_POST["number"])>5):
-      case (strlen($_POST["number"])<=0):
-        $number = "請輸入五個以內的數字" ;
-      break;
-      default:
-        $number = getNumber();
-    }
+      switch(true){
+        case (strlen($_POST["number"])>5):
+        case (strlen($_POST["number"])<=0):
+          $number = "請輸入五個以內的數字" ;
+        break;
+        default:
+          $number = getNumber();
+      }
     break;
 
     case (isset($_POST["word"])):
