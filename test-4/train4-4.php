@@ -19,7 +19,13 @@
             $str = trim(fgets($file));
             // $str = base64_decode($str);
             if(count(explode("__**__",$str))<=1) continue ;
-            $res[]= explode("__**__",$str)  ;
+            // if(count(explode("__**__",$str))>7) {
+            //   $this->error($str);
+            //   continue ;
+            // }  
+            $data = explode("__**__",$str)  ;
+            $this->decode($data);
+            $res[]=$data ;
           }
           fclose($file);
         }
@@ -30,7 +36,7 @@
     public function insert($data=[]){
       
       $file = fopen("test.txt","a+"); //開啟檔案
-
+      $this->encode($data);
       fwrite($file,join("__**__",$data).PHP_EOL);
 
       fclose($file);
@@ -40,6 +46,7 @@
     public function update($data=[]){
       $new = [] ;
       foreach($data as $k=>$v){
+        $this->encode($v);
         $new[]= join("__**__",$v);
       }
       $file = fopen("test.txt","w+"); 
@@ -47,9 +54,27 @@
       fwrite($file,join(PHP_EOL,$new));
 
       fclose($file);
-
     }
 
+    public function encode(&$data=[]){
+      foreach($data as $k=>$v){
+        $data[$k] = base64_encode($v) ;
+      }
+    }
+    public function decode(&$data=[]){
+      foreach($data as $k=>$v){
+        $data[$k] = base64_decode($v) ;
+      }
+    }
+    public function error($str){
+      
+      $file = fopen("error.txt","a+"); //開啟檔案
+
+      fwrite($file,$str.PHP_EOL);
+
+      fclose($file);
+
+    }
   }
   
   
