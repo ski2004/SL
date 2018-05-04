@@ -2,8 +2,24 @@
 <head>
   <script>
     function url(param){
-      let url = (!!param)? 'train5-2.php?'+param  : 'train5-2.php'  ;
+      console.log(param)
+      let url = (!!param)? 'train5-2.php?uid='+param  : 'train5-2.php'  ;
       window.location = url;
+    }
+
+ 
+
+    function del(uid){
+      var data = { 
+        action: 'del' ,
+        id: uid ,
+      }
+      sendAjax('POST' , data , finish );
+    }
+
+    function finish(res){
+      var data = JSON.parse(res) ;
+      errorCode(data["code"]) ;
     }
   </script>
 </head>
@@ -37,8 +53,8 @@
         <td>{$data['post_code']}</td>
         <td>{$data['address']}</td>
         <td>
-            <button type="button" class="btn btn-default btn-sm" onclick="url('uid={$data['id']}')" >修改</button>
-            <button type="button" class="btn btn-default btn-sm">刪除</button>
+            <button type="button" class="btn btn-default btn-sm" onclick="url({$data['id']})" >修改</button>
+            <button type="button" class="btn btn-default btn-sm" onclick="del({$data['id']})">刪除</button>
         </td>
       </tr>      
       {/foreach}

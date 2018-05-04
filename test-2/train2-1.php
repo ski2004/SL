@@ -120,15 +120,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script>
 
-    function getDays(month){
-      console.log(month);
-
-      console.log($("#month").val())
-     
-    }
-  </script>
   <style>
     b{
       color:red ;
@@ -139,9 +131,7 @@
 <form action="./train2-1.php" method="post" >
     萬年曆:
     <br>
-    <!-- <input type="text" name="year" value="" placeholder="ex: 2007" > -->
-    <!-- <input type="text" name="month" value="" placeholder="ex: 2007" > -->
-    <!-- <input type="text" name="day" value="" placeholder="ex: 2007" > -->
+
     <input type="text" name="date" value=""  placeholder="ex: 2007-02-04"> 
 
     <input type="submit" value="輸出">

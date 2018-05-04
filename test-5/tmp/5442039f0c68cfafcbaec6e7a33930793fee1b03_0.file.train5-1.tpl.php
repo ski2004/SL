@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.32, created on 2018-05-03 09:39:33
+/* Smarty version 3.1.32, created on 2018-05-04 03:24:21
   from 'C:\wamp64\www\test\SL\test-5\views\train5-1.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32',
-  'unifunc' => 'content_5aead8d5bcadc0_72748397',
+  'unifunc' => 'content_5aebd26594b136_86665104',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5442039f0c68cfafcbaec6e7a33930793fee1b03' => 
     array (
       0 => 'C:\\wamp64\\www\\test\\SL\\test-5\\views\\train5-1.tpl',
-      1 => 1525340371,
+      1 => 1525404260,
       2 => 'file',
     ),
   ),
@@ -21,15 +21,31 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:header.tpl' => 1,
   ),
 ),false)) {
-function content_5aead8d5bcadc0_72748397 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5aebd26594b136_86665104 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <head>
   <?php echo '<script'; ?>
 >
     function url(param){
-      let url = (!!param)? 'train5-2.php?'+param  : 'train5-2.php'  ;
+      console.log(param)
+      let url = (!!param)? 'train5-2.php?uid='+param  : 'train5-2.php'  ;
       window.location = url;
+    }
+
+ 
+
+    function del(uid){
+      var data = { 
+        action: 'del' ,
+        id: uid ,
+      }
+      sendAjax('POST' , data , finish );
+    }
+
+    function finish(res){
+      var data = JSON.parse(res) ;
+      errorCode(data["code"]) ;
     }
   <?php echo '</script'; ?>
 >
@@ -74,9 +90,10 @@ foreach ($_from as $_smarty_tpl->tpl_vars['data']->value) {
         <td><?php echo $_smarty_tpl->tpl_vars['data']->value['address'];?>
 </td>
         <td>
-            <button type="button" class="btn btn-default btn-sm" onclick="url('uid=<?php echo $_smarty_tpl->tpl_vars['data']->value['id'];?>
-')" >修改</button>
-            <button type="button" class="btn btn-default btn-sm">刪除</button>
+            <button type="button" class="btn btn-default btn-sm" onclick="url(<?php echo $_smarty_tpl->tpl_vars['data']->value['id'];?>
+)" >修改</button>
+            <button type="button" class="btn btn-default btn-sm" onclick="del(<?php echo $_smarty_tpl->tpl_vars['data']->value['id'];?>
+)">刪除</button>
         </td>
       </tr>      
       <?php
