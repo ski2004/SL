@@ -40,7 +40,7 @@ echo '<?php
       $this->tpl->compile_dir = "tmp" ;
       $this->verify();
     
-      $usr = $this->db->get("sales") ;
+      $usr = $this->db->get("customer") ;
       $this->tpl->assign("usr" , $usr); 
       $this->tpl->display("train5-1.tpl");
     }

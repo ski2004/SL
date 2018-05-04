@@ -29,7 +29,7 @@
     }
 
     public function edit(){
-      $usr = $this->db->get("sales" , [ 'id'=> $_GET["uid"] ] ) ;
+      $usr = $this->db->get("customer" , [ 'id'=> $_GET["uid"] ] ) ;
       $this->tpl->assign("usr" , array_shift($usr)); 
     }
 

@@ -52,7 +52,7 @@
       // 判斷開關
       $enable = $this->db->get("control" , [ "name" => "identity_repeat" ] );
       if($enable[0]['content']==='1') {
-        $repeatData = $this->db->get("sales" , [ "identity" => $this->param["identity"] ] );
+        $repeatData = $this->db->get("customer" , [ "identity" => $this->param["identity"] ] );
         if(count($repeatData)>0) {
           $this->back(1007);
           return ;
@@ -61,7 +61,7 @@
 
       $array = [ "name" => $this->param["name"] , "identity" => $this->param["identity"] , "birth" => $this->param["birth"] , "tel" => $this->param["tel"] , "post_code" => $this->param["post_code"] , "address" => $this->param["address"]  ] ;
       
-      $rs = $this->db->insert("sales" , $array ) ;
+      $rs = $this->db->insert("customer" , $array ) ;
       
       if($rs==1){
         $this->back();
@@ -74,7 +74,7 @@
       
       $array = [ "name" => $this->param["name"] , "identity" => $this->param["identity"] , "birth" => $this->param["birth"] , "tel" => $this->param["tel"] , "post_code" => $this->param["post_code"] , "address" => $this->param["address"]  ] ;
       $where = [ "id" => $this->param['id'] ] ;
-      $rs = $this->db->update("sales" , $array , $where ) ;
+      $rs = $this->db->update("customer" , $array , $where ) ;
       
       if($rs==1){
         $this->back();
@@ -85,7 +85,7 @@
 
     public function del(){
       
-      $rs = $this->db->del("sales" , "id=".$this->param['id'] ) ;
+      $rs = $this->db->del("customer" , "id=".$this->param['id'] ) ;
       
       if($rs==1){
         $this->back();
