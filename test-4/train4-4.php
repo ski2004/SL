@@ -17,12 +17,7 @@
           //當檔案未執行到最後一筆，迴圈繼續執行(fgets一次抓一行)
           while (!feof($file)) {
             $str = trim(fgets($file));
-            // $str = base64_decode($str);
             if(count(explode("__**__",$str))<=1) continue ;
-            // if(count(explode("__**__",$str))>7) {
-            //   $this->error($str);
-            //   continue ;
-            // }  
             $data = explode("__**__",$str)  ;
             $this->decode($data);
             $res[]=$data ;
