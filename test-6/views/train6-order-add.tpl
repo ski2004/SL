@@ -1,18 +1,20 @@
+
+{include file="title.tpl" }
 {include file="header.tpl" }
 <head>
 <script>
     function back(param){
-      go("train6-home.php");
+      go("train6-order.php");
     }
   
     function post(type){
       var data = { 
         action: '{$type}' ,
-        src: 'store' ,
+        src: 'orders' ,
         id: "{$usr['id']}" ,
-        name: $('#name').val(),
-        account:  $('#account').val() ,
-        password:  $('#password').val()
+        c_id: $('#c_id').val(),
+        p_id:  $('#p_id').val() ,
+        status:  $('#status').val()
       }
       sendAjax("train6-ajax.php" , data , finish );
     }
@@ -20,13 +22,14 @@
     function finish(res){
       var data = JSON.parse(res) ;
       errorCode(data["code"]) ;
+      // back();
     }
 </script>
 </head>
 <body>
 
 <div class="container">
-  <h2>店家資訊</h2>
+  <h2>訂單資訊</h2>
   <form>
   <table class="table">
     <thead>
@@ -38,23 +41,23 @@
     </thead>
     <tbody>
       <tr>
-        <td>名稱</td>
+        <td>產品</td>
         <td>
-            <input id="name" type="text" value="{$usr['name']}" >
+            <input id="p_id" type="text" value="{$usr['p_id']}" >
         </td>
       </tr>
       <tr>
-        <td>帳號</td>
+        <td>顧客</td>
         <td>
-            <input id="account" type="text" value="{$usr['account']}" >
+            <input id="c_id" type="text" value="{$usr['c_id']}" >
         </td>
-      </tr>
+      </tr>   
       <tr>
-        <td>密碼</td>
+        <td>狀態</td>
         <td>
-            <input id="password" type="password" value="{$usr['password']}" >
+            <input id="status" type="text" value="{$usr['status']}" >
         </td>
-      </tr>              
+      </tr>                   
     </tbody>
     <tfoot>
       <tr>

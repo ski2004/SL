@@ -27,23 +27,22 @@ class MySql
    
     public function get($table , $where=[] , $field=[]){
         
-        $value = [] ;
+        $values = [] ;
         $WHERE = [] ;
         $FIELDS = [] ;
         foreach($field as $k=>$v){
             $FIELDS[]= $v ;
         }
         foreach($where as $k=>$v){
-            $WHERE[]= $k."=?" ;
-            $value[]= $v ;
+            $WHERE[]= $k."=:".$k ;
+            $values[":".$k]= $v;
         }
         $sql =(count($FIELDS)===0)? " SELECT * FROM $table " : " SELECT ".join(",",$FIELDS)." FROM $table "  ;
-        $sql =(count($WHERE)===0)? $sql : $sql. " WHERE ".join(",",$WHERE) ; 
+        $sql =(count($WHERE)===0)? $sql : $sql. " WHERE ".join(" AND ",$WHERE) ; 
         $sql .= " ORDER BY id ASC " ;
-        // echo $sql; 
 
         $rs = $this->db->prepare($sql);
-        $rs->execute($value);
+        $rs->execute($values);
         $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
         return $rows ;
     }

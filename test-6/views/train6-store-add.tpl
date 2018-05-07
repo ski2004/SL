@@ -1,3 +1,4 @@
+{include file="title.tpl" }
 {include file="header.tpl" }
 <head>
 <script>
