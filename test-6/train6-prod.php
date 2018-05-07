@@ -17,9 +17,9 @@
       $this->tpl->compile_dir = "tmp" ;
       $this->verify();
       
-      $usr = $this->db->get("store") ;
+      $usr = $this->db->get("items") ;
       $this->tpl->assign("usr" , $usr); 
-      $this->tpl->display("train6-home.tpl");
+      $this->tpl->display("train6-prod.tpl");
     }
 
     public function verify(){

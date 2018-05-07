@@ -50,7 +50,8 @@
         break;                                        
         default:
           alert('成功');
-          window.location = 'train5-1.php';
+          go('train6-home.php');
+          
       }
     }
   </script>
@@ -64,9 +65,9 @@
         </a>
       </div>
       <ul class="nav navbar-nav">
-        <li class=""><a href="#">店家列表</a></li>
-        <li class=""><a href="#">業務列表</a></li>
-        <li class=""><a href="#">訂單列表</a></li>
+        <li class=""><a href="./train6-home.php">店家列表</a></li>
+        <li class=""><a href="./train6-prod.php">產品列表</a></li>
+        <li class=""><a href="./train6-order.php">訂單列表</a></li>
       </ul>
     </div>
   </nav>

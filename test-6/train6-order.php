@@ -16,10 +16,10 @@
       $this->tpl->template_dir = "views" ;
       $this->tpl->compile_dir = "tmp" ;
       $this->verify();
-      
-      $usr = $this->db->get("store") ;
+
+      $usr = $this->db->get("order") ;
       $this->tpl->assign("usr" , $usr); 
-      $this->tpl->display("train6-home.tpl");
+      $this->tpl->display("train6-order.tpl");
     }
 
     public function verify(){

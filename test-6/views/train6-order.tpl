@@ -46,9 +46,9 @@
         <td>{$data['password']}</td>
         <td>
             <button type="button" class="btn btn-default btn-sm" onclick="url('train6-store-add.php?uid={$data['id']}')" >修改</button>
-            <button type="button" class="btn btn-default btn-sm" onclick="url('train6-prod.php')" >產品</button>
-            <button type="button" class="btn btn-default btn-sm" onclick="url('train6-order.php')" >訂購</button>
-            <!-- <button type="button" class="btn btn-default btn-sm" onclick="del({$data['id']})">停用</button> -->
+            <button type="button" class="btn btn-default btn-sm" onclick="" >產品</button>
+            <button type="button" class="btn btn-default btn-sm" onclick="" >訂購</button>
+            <button type="button" class="btn btn-default btn-sm" onclick="del({$data['id']})">停用</button>
         </td>
       </tr>      
       {/foreach}
