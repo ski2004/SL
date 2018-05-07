@@ -1,50 +1,26 @@
-<?php
-/* Smarty version 3.1.32, created on 2018-05-04 07:17:44
-  from 'C:\wamp64\www\test\SL\test-4\views\header.tpl' */
-
-/* @var Smarty_Internal_Template $_smarty_tpl */
-if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '3.1.32',
-  'unifunc' => 'content_5aec09187556d2_78462620',
-  'has_nocache_code' => false,
-  'file_dependency' => 
-  array (
-    'c0825cf5e0f77fa78831eb322da9633d5644ce0f' => 
-    array (
-      0 => 'C:\\wamp64\\www\\test\\SL\\test-4\\views\\header.tpl',
-      1 => 1525418260,
-      2 => 'file',
-    ),
-  ),
-  'includes' => 
-  array (
-  ),
-),false)) {
-function content_5aec09187556d2_78462620 (Smarty_Internal_Template $_smarty_tpl) {
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <?php echo '<script'; ?>
- src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"><?php echo '</script'; ?>
->
-  <?php echo '<script'; ?>
- src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"><?php echo '</script'; ?>
->
-  <?php echo '<script'; ?>
->
-    function sendAjax(method , data , success){
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    function sendAjax(url ,data , success , method="POST"){
         $.ajax({
             method: method ,
-            url: "train4-3.php",
+            url: url,
             data: data,
             success:success ,
             error: function(){
             }
         });
+    }
+
+    function go(url){
+      window.location = url;
     }
 
     function errorCode(code){
@@ -74,15 +50,27 @@ function content_5aec09187556d2_78462620 (Smarty_Internal_Template $_smarty_tpl)
         break;                                        
         default:
           alert('成功');
-          window.location = 'train4-1.php';
+          window.location = 'train5-1.php';
       }
     }
-  <?php echo '</script'; ?>
->
+  </script>
 </head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <b>這是後台</b>
+        </a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class=""><a href="#">店家列表</a></li>
+        <li class=""><a href="#">業務列表</a></li>
+        <li class=""><a href="#">訂單列表</a></li>
+      </ul>
+    </div>
+  </nav>
+</body>
 
 
 
-
-<?php }
-}
