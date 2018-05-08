@@ -11,6 +11,7 @@ class Action
   public $ID;
   public $table;
   public $action;
+  public $usr;
   public $type;
   public $error;
   public $param;
@@ -33,7 +34,7 @@ class Action
       default:
         $this->table = $this->param["src"];
         $this->action = $this->param["action"];
-        $this->ID = ($this->param["id"]) ? $this->param["id"] : 0;
+        $this->ID = (isset($this->param["id"])) ? $this->param["id"] : 0;
         unset($this->param["src"]);
         unset($this->param["action"]);
     }
@@ -45,12 +46,13 @@ class Action
   {
 
     $this->headers = apache_request_headers();
-    $login = $this->db->get("login", ["token" => $this->headers["Authorization"]] );
-    switch(true){
+    $login = $this->db->get("login", ["token" => $this->headers["Authorization"]]);
+    switch (true) {
       case (!isset($login[0]["id"])):
-      case ( strtotime("now")-strtotime($login[0]["last_time"])>600):
-        return false ;
+      case (strtotime("now") - strtotime($login[0]["last_time"]) > 6000):
+        return false;
     }
+    $this->usr = $login[0];
     return true;
   }
 
@@ -61,32 +63,49 @@ class Action
       case "insert":
         if (!$this->verify()) return;
         if (isset($this->param["id"])) unset($this->param["id"]);
-        //   if(!$this->verify_Identity()) return ;
         $this->insert();
         break;
       case "update":
         if (!$this->verify()) return;
-        //   if(!$this->verify_Identity()) return ;
         $this->update();
         break;
       case "del":
         if (!$this->verify_del()) return;
         $this->del();
         break;
+      case "get":
+        if (!$this->verify()) return;
+        $rs = $this->get();
+        $this->back(201, $rs);
+        break;
       default:
     }
-
-    $this->db->update("login",["last_time"=>date('Y-m-d H:i:s')] , ["token"=>$this->headers["Authorization"] ] );
+    // $_SERVER['REQUEST_URI'] 
+    $this->db->update("login", ["last_time" => date('Y-m-d H:i:s')], ["token" => $this->headers["Authorization"], "type" => "admin"]);
   }
 
-
+  public function get()
+  {
+    $where = $this->param;
+    
+    if(array_search("uid", $where)){
+      $uid = array_search("uid", $where);
+      $where[$uid] = $this->usr["uid"];
+    }
+  
+    return $this->db->get($this->table, $where);
+  }
 
   public function insert()
   {
+    $where = $this->param;
+    
+    if(array_search("uid", $where)){
+      $uid = array_search("uid", $where);
+      $where[$uid] = $this->usr["uid"];
+    }
 
-    //   $array = [ "name" => $this->param["name"] , "identity" => $this->param["identity"] , "birth" => $this->param["birth"] , "tel" => $this->param["tel"] , "post_code" => $this->param["post_code"] , "address" => $this->param["address"]  ] ;
-
-    $rs = $this->db->insert($this->table, $this->param);
+    $rs = $this->db->insert($this->table, $where);
 
     if ($rs == 1) {
       $this->back();
@@ -98,7 +117,6 @@ class Action
   public function update()
   {
 
-    // $array = ["name" => $this->param["name"], "identity" => $this->param["identity"], "birth" => $this->param["birth"], "tel" => $this->param["tel"], "post_code" => $this->param["post_code"], "address" => $this->param["address"]];
     $where = ["id" => $this->ID];
     $rs = $this->db->update($this->table, $this->param, $where);
 
@@ -112,7 +130,7 @@ class Action
   public function del()
   {
 
-    $rs = $this->db->del($this->table,  ["id"=>$this->param['id']]);
+    $rs = $this->db->del($this->table, ["id" => $this->param['id']]);
 
     if ($rs == 1) {
       $this->back();
@@ -126,13 +144,13 @@ class Action
     echo json_encode(["code" => $code, "content" => $content]);
   }
 
-    // 新增修改參數 驗證
+  // 新增修改參數 驗證
   public function verify()
   {
 
     return true;
   }
-    // 刪除 參數驗證
+  // 刪除 參數驗證
   public function verify_del()
   {
     switch (true) {

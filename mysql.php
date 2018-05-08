@@ -24,7 +24,13 @@ class MySql
        
     }
 
-   
+    public function queryAll($sql){
+        $rs = $this->db->prepare($sql);
+        $rs->execute();
+        $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
+        return $rows ;
+    }
+
     public function get($table , $where=[] , $field=[]){
         
         $value = [] ;

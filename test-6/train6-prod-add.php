@@ -19,8 +19,10 @@
       $this->verify();
       $this->tpl->assign("type" , $this->type);
       $this->tpl->assign("typeName" , $this->typeName);
-
-     
+      $store = (isset($_GET["store"]))? $_GET["store"] : "0" ;
+      $info = $this->db->get("store" , ["id"=>$store] );
+      $this->tpl->assign("store" , $store); 
+      $this->tpl->assign("info" , array_shift($info) ); 
       $this->tpl->display("train6-prod-add.tpl");
     }
 

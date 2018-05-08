@@ -15,12 +15,14 @@
         account:  $('#account').val() ,
         password:  $('#password').val()
       }
+      if(data.action === 'insert' ) data.top_id = 'uid' ;
       sendAjax("train6-ajax.php" , data , finish );
     }
 
     function finish(res){
       var data = JSON.parse(res) ;
       errorCode(data["code"]) ;
+      back();
     }
 </script>
 </head>

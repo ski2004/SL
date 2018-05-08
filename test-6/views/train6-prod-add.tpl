@@ -3,7 +3,7 @@
 <head>
 <script>
     function back(param){
-      go("train6-prod.php");
+      go("train6-prod.php?store={$store}");
     }
   
     function post(type){
@@ -11,6 +11,7 @@
         action: '{$type}' ,
         src: 'items' ,
         id: "{$usr['id']}" ,
+        store_id:"{$store}",
         name: $('#name').val()
       }
       sendAjax("train6-ajax.php" , data , finish );
@@ -26,7 +27,7 @@
 <body>
 
 <div class="container">
-  <h2>產品資訊</h2>
+  <h2>{$info["name"]}>產品資訊</h2>
   <form>
   <table class="table">
     <thead>

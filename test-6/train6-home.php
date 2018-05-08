@@ -16,8 +16,8 @@
       $this->tpl->template_dir = "views" ;
       $this->tpl->compile_dir = "tmp" ;
       $this->verify();
-      
-      $usr = $this->db->get("store") ;
+      $usr = [] ;
+      // $usr = $this->db->get("store") ;
       $this->tpl->assign("usr" , $usr); 
       $this->tpl->display("train6-home.tpl");
     }

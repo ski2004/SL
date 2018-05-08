@@ -9,28 +9,42 @@ class Action
   public $db;
   public $error;
   public $param;
+  public $type;
   public function __construct()
   {
     $this->param = $_POST;
     $this->table = null;
     $this->db = new MySql();
-    $headers = apache_request_headers();
-    // print_r($headers);
+
 
     $this->action();
   }
+
+
   private function back($code = 200, $content = null)
   {
     echo json_encode(["code" => $code, "token" => $content]);
   }
 
+
+  public function LoginType(){
+    // $uri = $_SERVER["REQUEST_URI"] ;
+    // $array = explode("/",$uri);
+
+    // switch($array[1]){
+    //   case ("")
+    // }
+
+    return false ;
+  }
+
   public function action()
   {
-    if (!$this->vertify()) return;
-    // print_r($this->param);
+    // if (!$this->vertify()) return;
+    if (!$this->LoginType()) return;
+
     $key = '';
-    $usr = $this->db->get("sales", $this->param);
-    // print_r($usr);
+    $usr = $this->db->get($this->type , $this->param);
     if (isset($usr[0]["id"])) {
       $key = $this->getKey($usr[0]);
       $this->back(200, $key);
@@ -45,7 +59,7 @@ class Action
     $k = join("@", $usr);
     // echo md5($k);
     $encode = md5($k);
-    $this->db->insert("login", ["token" => $encode]);
+    $this->db->insert("login", ["token" => $encode , "uid"=>$usr["id"] ]);
     return $encode;
   }
 

@@ -43,6 +43,11 @@
     function errorCode(code) {
 
       switch (Number(code)) {
+        case 200:
+          alert('成功');
+          break;
+        case 201:
+          break;          
         case 403:
           alert('登入逾時，請重新登入');
           Logout();
@@ -73,7 +78,7 @@
           alert('身分證重複');
           break;
         default:
-          alert('成功');
+
 
       }
     }
