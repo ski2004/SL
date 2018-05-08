@@ -10,14 +10,16 @@
     function del(uid){
       var data = { 
         action: 'del' ,
+        src:'store' ,
         id: uid ,
       }
-      sendAjax('POST' , data , finish );
+      sendAjax("train6-ajax.php" , data , finish );
     }
 
     function finish(res){
       var data = JSON.parse(res) ;
       errorCode(data["code"]) ;
+      reload();
     }
   </script>
 </head>

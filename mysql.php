@@ -27,7 +27,7 @@ class MySql
    
     public function get($table , $where=[] , $field=[]){
         
-        $values = [] ;
+        $value = [] ;
         $WHERE = [] ;
         $FIELDS = [] ;
         foreach($field as $k=>$v){
@@ -35,14 +35,14 @@ class MySql
         }
         foreach($where as $k=>$v){
             $WHERE[]= $k."=:".$k ;
-            $values[":".$k]= $v;
+            $value[":".$k]= $v;
         }
         $sql =(count($FIELDS)===0)? " SELECT * FROM $table " : " SELECT ".join(",",$FIELDS)." FROM $table "  ;
         $sql =(count($WHERE)===0)? $sql : $sql. " WHERE ".join(" AND ",$WHERE) ; 
         $sql .= " ORDER BY id ASC " ;
 
         $rs = $this->db->prepare($sql);
-        $rs->execute($values);
+        $rs->execute($value);
         $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
         return $rows ;
     }
@@ -107,19 +107,24 @@ class MySql
         }
     }
 
-    public function del($table=null , $where=null ){
+    public function del($table=null , $where=[] ){
         
         try{
             switch(true){
                 case ($table===null):
-                case ($where===null):
+                case (count($where)===0):
                     return false ;
             }
-
-            $sql = " DELETE FROM $table WHERE $where " ;
+            $WHERE = [] ;
+            $value = [] ;
+            foreach($where as $k=>$v){
+                $WHERE[]= $k."=:".$k ;
+                $value[":".$k]= $v;
+            }
+            $sql = " DELETE FROM $table WHERE ".join(',',$WHERE) ;
             // echo $sql; 
             $rs = $this->db->prepare($sql);
-            $rs->execute();
+            $rs->execute($value);
             return  $rs->rowCount() ;
         }catch(PDOException $e){
             echo $sql . "<br>" . $e->getMessage();

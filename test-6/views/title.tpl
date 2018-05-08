@@ -9,8 +9,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
-    Authorization = "" ;
+
     function sendAjax(url, data, success, method = "POST") {
+      Authorization = sessionStorage.getItem("token") ;
       $.ajax({
         method: method,
         url: url,
@@ -20,8 +21,19 @@
         },
         success: success,
         error: function () {
+
         }
       });
+    }
+
+    function Logout(){
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("account");
+      window.location = 'login.php';
+    }
+
+    function reload(){
+      location.reload();
     }
 
     function go(url) {
@@ -31,6 +43,10 @@
     function errorCode(code) {
 
       switch (Number(code)) {
+        case 403:
+          alert('登入逾時，請重新登入');
+          Logout();
+        break;
         case 1000:
           alert('帳密有錯');
           break;

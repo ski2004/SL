@@ -6,6 +6,7 @@ $action = new Action();
 
 class Action
 {
+  public $headers;
   public $db;
   public $ID;
   public $table;
@@ -22,10 +23,13 @@ class Action
       // print_r($_POST);
 
     switch (true) {
+      case (!$this->Auth()):
+        $this->back(403);
+        break;
       case (!isset($this->param["action"])):
       case (!isset($this->param["src"])):
         $this->back(1002);
-        return;
+        break;
       default:
         $this->table = $this->param["src"];
         $this->action = $this->param["action"];
@@ -36,6 +40,18 @@ class Action
 
     $this->action();
 
+  }
+  public function Auth()
+  {
+
+    $this->headers = apache_request_headers();
+    $login = $this->db->get("login", ["token" => $this->headers["Authorization"]] );
+    switch(true){
+      case (!isset($login[0]["id"])):
+      case ( strtotime("now")-strtotime($login[0]["last_time"])>600):
+        return false ;
+    }
+    return true;
   }
 
   public function action()
@@ -58,8 +74,9 @@ class Action
         $this->del();
         break;
       default:
-
     }
+
+    $this->db->update("login",["last_time"=>date('Y-m-d H:i:s')] , ["token"=>$this->headers["Authorization"] ] );
   }
 
 
@@ -82,7 +99,7 @@ class Action
   {
 
     // $array = ["name" => $this->param["name"], "identity" => $this->param["identity"], "birth" => $this->param["birth"], "tel" => $this->param["tel"], "post_code" => $this->param["post_code"], "address" => $this->param["address"]];
-    $where = ["id" => $this->ID ];
+    $where = ["id" => $this->ID];
     $rs = $this->db->update($this->table, $this->param, $where);
 
     if ($rs == 1) {
@@ -95,7 +112,7 @@ class Action
   public function del()
   {
 
-    $rs = $this->db->del("customer", "id=" . $this->param['id']);
+    $rs = $this->db->del($this->table,  ["id"=>$this->param['id']]);
 
     if ($rs == 1) {
       $this->back();
@@ -125,7 +142,7 @@ class Action
     }
     return true;
   }
-  
+
 
 }
   

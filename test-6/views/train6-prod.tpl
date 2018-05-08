@@ -5,7 +5,20 @@
     function url(url){
       window.location = url;
     }
+    function del(uid){
+      var data = { 
+        action: 'del' ,
+        src:'items' ,
+        id: uid ,
+      }
+      sendAjax("train6-ajax.php" , data , finish );
+    }
 
+    function finish(res){
+      var data = JSON.parse(res) ;
+      errorCode(data["code"]) ;
+      reload();
+    }
 
   </script>
 </head>
@@ -31,7 +44,8 @@
         <td>{$data['id']}</td>
         <td>{$data['name']}</td>
         <td>
-            <button type="button" class="btn btn-default btn-sm" onclick="" >修改</button>            
+          <button type="button" class="btn btn-default btn-sm" onclick="url('train6-prod-add.php?uid={$data['id']}')" >修改</button>
+            <button type="button" class="btn btn-default btn-sm" onclick="del({$data['id']})">停用</button>
         </td>
       </tr>      
       {/foreach}
