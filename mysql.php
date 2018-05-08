@@ -9,7 +9,8 @@ class MySql
 
     protected $dbhost ="127.0.0.1" ;
     protected $dbUser = "root" ;
-    protected $dbPass = "";
+    // protected $dbPass = "";
+    protected $dbPass = "db@2017@CN";
     protected $dbName = "example" ;
 
     public function __construct()
