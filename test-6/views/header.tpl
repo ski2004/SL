@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" >
-          <b>這是後台</b>
+          <b>QAQ</b>
         </a>
       </div>
       <ul class="nav navbar-nav">

@@ -4,6 +4,7 @@
 <head>
   <script>
     $(document).ready(function(){
+      if(sessionStorage.getItem("type")!== "sales") Logout();
       list();
     });
 

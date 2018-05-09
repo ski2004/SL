@@ -17,6 +17,7 @@ class MySql
     public function __construct()
     {
         $this->db  = new mysqli($this->dbhost, $this->dbUser, $this->dbPass , $this->dbName);
+        $this->db->set_charset("utf8");
         if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
         }
@@ -129,6 +130,7 @@ class MySql
         $rs = $this->db->prepare($sql);
         if(count($value)>0){
             array_unshift( $value , str_repeat('s',count($value) ));
+            // print_r($value);
             call_user_func_array(array($rs, 'bind_param'), $this->refValues($value));
         }
         $rs->execute();
@@ -162,6 +164,10 @@ class MySql
         $rs->execute();
         // print_r($rs);
         return  $rs->affected_rows ;
+    }
+
+    public function close(){
+        mysqli_close($this->db);
     }
 
 

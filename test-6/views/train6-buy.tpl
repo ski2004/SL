@@ -3,7 +3,7 @@
 <head>
   <script>
     $(document).ready(function(){
-      if(sessionStorage.getItem("type")!== "store") $('#btn-add').hide();
+      // if(sessionStorage.getItem("type")!== "store") $('#btn-add').hide();
       list();
     });
 
@@ -36,9 +36,7 @@
         str += "<td>"+data["content"][i]['id']+"</td>" ;
         str += "<td>"+data["content"][i]['name']+"</td>" ;
         str += "<td>";
-        str += "<button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-prod-add.php?store={$store}&uid="+data["content"][i]["id"]+"\")\' >修改</button>" ;
-        str += "&nbsp; <button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-order.php?prod="+data["content"][i]["id"]+"\")\' >訂單</button>" ;
-        str += "&nbsp; <button type='button' class='btn btn-default btn-sm' onclick=\'del(\""+data["content"][i]["id"]+"\")\' >刪除</button>" ;
+        str += "<button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-prod-add.php?store={$store}&uid="+data["content"][i]["id"]+"\")\' >購買</button>" ;
         str += "</td>";
         str += "</tr>" ;
         view.push(str);
@@ -52,7 +50,6 @@
       var data = { 
         action: 'get' ,
         src:'items' ,
-        store_id:'{$store}'
       }
       sendAjax("train6-ajax.php" , data , showView );      
     }
@@ -61,7 +58,7 @@
 <body>
 
 <div class="container">
-  <h2>{$info["name"]}>我的產品 </h2>
+  <h2></h2>
   
   <table class="table">
     <thead>
@@ -69,7 +66,12 @@
         <th>###</th>
         <th>名稱</th>
         <th>
-            <button type="button" id="btn-add" class="btn btn-default btn-sm" onclick="url('train6-prod-add.php?store={$store}')" >新增</button>
+          
+          <select name="" id="">
+              {foreach from=$info key=k item=v }
+                <option value="{$v['id']}">{$v['name']}</option>
+              {/foreach }
+          </select>
         </th>
       </tr>
     </thead>

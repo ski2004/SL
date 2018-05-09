@@ -80,8 +80,8 @@ class Action
         break;
       default:
     }
-    // $_SERVER['REQUEST_URI'] 
-    $this->db->update("login", ["last_time" => date('Y-m-d H:i:s')], ["token" => $this->headers["Authorization"], "type" => "admin"]);
+    
+
   }
 
   public function get()
@@ -104,8 +104,7 @@ class Action
       $uid = array_search("uid", $where);
       $where[$uid] = $this->usr["uid"];
     }
-
-    $rs = $this->db->insert($this->table, $where);
+      $rs = $this->db->insert($this->table, $where);
 
     if ($rs == 1) {
       $this->back();
@@ -141,6 +140,7 @@ class Action
 
   private function back($code = 200, $content = null)
   {
+    // $this->db->update("login", ["last_time" => date('Y-m-d H:i:s')], ["token" => $this->headers["Authorization"], "type" => "admin"]);
     echo json_encode(["code" => $code, "content" => $content]);
   }
 

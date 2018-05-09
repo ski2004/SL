@@ -1,6 +1,6 @@
 <?php
     
-  require_once('../../main.php') ;
+  require_once('../main.php') ;
   
   $action = new Action();
   
@@ -13,9 +13,9 @@
     {
       // $this->db = new MySql();
       $this->tpl = new Smarty(); 
-      $this->tpl->template_dir = "../views" ;
-      $this->tpl->compile_dir = "../tmp" ;
+      $this->tpl->template_dir = "views" ;
+      $this->tpl->compile_dir = "tmp" ;
     
-      $this->tpl->display("login.tpl");
+      $this->tpl->display("login_customer.tpl");
     }
   }

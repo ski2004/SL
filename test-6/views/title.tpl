@@ -27,9 +27,18 @@
     }
 
     function Logout(){
+      var url = 'login.php' ;
+      switch(sessionStorage.getItem("type")){
+        case ('customer'):
+        url = 'index.php' ;
+        break;
+        case ('sales'):
+        url = 'home.php' ;
+        break;
+      }
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("account");
-      window.location = 'login.php';
+      window.location = url;
     }
 
     function reload(){
@@ -52,6 +61,9 @@
           alert('登入逾時，請重新登入');
           Logout();
         break;
+        case 999:
+          alert('登入異常,請關閉瀏覽器重登');
+          break;        
         case 1000:
           alert('帳密有錯');
           break;

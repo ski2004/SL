@@ -18,13 +18,11 @@
       $this->verify();
       $store = (isset($_GET["store"]))? $_GET["store"] : "0" ;
 
-      $info = $this->db->get("store" , ["id"=>$store] );
+      $info = $this->db->get("store" );
 
-      $usr = $this->db->get("items") ;
-      $this->tpl->assign("usr" , $usr); 
       $this->tpl->assign("store" , $store); 
-      $this->tpl->assign("info" , array_shift($info) ); 
-      $this->tpl->display("train6-prod.tpl");
+      $this->tpl->assign("info" , $info ); 
+      $this->tpl->display("train6-buy.tpl");
     }
 
     public function verify(){

@@ -16,38 +16,55 @@ class Action
     $this->table = null;
     $this->db = new MySql();
 
-
+    
     $this->action();
+    
   }
 
 
-  private function back($code = 200, $content = null)
+  private function back($code = 200, $content = null , $uid = null)
   {
-    echo json_encode(["code" => $code, "token" => $content]);
+    echo json_encode(["code" => $code, "token" => $content , "uid" => $uid]);
   }
 
 
   public function LoginType(){
-    // $uri = $_SERVER["REQUEST_URI"] ;
-    // $array = explode("/",$uri);
+    $uri = $_SERVER["HTTP_REFERER"] ;
+    $array = explode("/",$uri);
 
-    // switch($array[1]){
-    //   case ("")
-    // }
+    $PAGE  =  $array[count($array)-1] ;
 
-    return false ;
+    switch( trim($PAGE) ){
+      case ("index.php"):
+        $this->type = "customer" ;
+        return true ;
+      break;
+      case ("home.php"):
+        $this->type = "sales" ;
+        return true ;
+      break;
+      case ("login.php"):
+        $this->type = "store" ;
+        return true ;
+      break;
+      default:
+        $this->back(999);
+        return false ;
+    }
+
+
   }
 
   public function action()
   {
-    // if (!$this->vertify()) return;
+    if (!$this->vertify()) return;
     if (!$this->LoginType()) return;
 
     $key = '';
     $usr = $this->db->get($this->type , $this->param);
     if (isset($usr[0]["id"])) {
       $key = $this->getKey($usr[0]);
-      $this->back(200, $key);
+      $this->back(200, $key , $usr[0]["id"] );
     } else {
       $this->back(1000, $key);
     }
@@ -57,9 +74,8 @@ class Action
   {
     $usr[] = time();
     $k = join("@", $usr);
-    // echo md5($k);
     $encode = md5($k);
-    $this->db->insert("login", ["token" => $encode , "uid"=>$usr["id"] ]);
+    $this->db->insert("login", ["token" => $encode , "uid"=>$usr["id"] , "login_time"=>date("Y-m-d H:i:s")  ,"last_time"=>date("Y-m-d H:i:s") , "type"=>$this->type ]);
     return $encode;
   }
 

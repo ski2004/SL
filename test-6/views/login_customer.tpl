@@ -15,7 +15,7 @@
 <div class="container">
 
   <form class="form-signin">
-    <h2 class="form-signin-heading">Store sign in</h2>
+    <h2 class="form-signin-heading">Customer sign in</h2>
 
     <input type="input" id="account" class="form-control"  placeholder="帳號" required>
     
@@ -42,7 +42,6 @@
     if(data["code"]===200) {
       sessionStorage.setItem("token",data["token"]);
       sessionStorage.setItem("type","store");
-      console.log(sessionStorage.getItem("type"))
       sessionStorage.setItem("account",$('#account').val());
       go("./train6-prod.php?store="+data["uid"]);
     }
