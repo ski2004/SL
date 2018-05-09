@@ -103,9 +103,10 @@ DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `id` int(11) NOT NULL,
   `token` char(255) DEFAULT NULL,
-  `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `login_time` timestamp NOT NULL   ,
+  `last_time` timestamp NOT NULL  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- 資料表的匯出資料 `login`
@@ -133,8 +134,8 @@ CREATE TABLE `orders` (
   `name` char(30) NOT NULL,
   `c_id` int(11) NOT NULL DEFAULT '0',
   `status` int(4) NOT NULL DEFAULT '1',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `create_time` timestamp NOT NULL ,
+  `update_time` timestamp NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

@@ -2,6 +2,9 @@
 {include file="header.tpl" }
 <head>
 <script>
+    $(document).ready(function(){
+      // list();
+    });
     function back(param){
       go("train6-prod.php?store={$store}");
     }

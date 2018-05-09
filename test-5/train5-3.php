@@ -30,12 +30,12 @@
       switch($this->param["action"]){
         case "insert":
           if(!$this->verify()) return ;
-          if(!$this->verify_Identity()) return ;
+          // if(!$this->verify_Identity()) return ;
           $this->insert();
         break;
         case "update":
           if(!$this->verify()) return ;
-          if(!$this->verify_Identity()) return ;
+          // if(!$this->verify_Identity()) return ;
           $this->update();
         break;
         case "del":
@@ -85,7 +85,7 @@
 
     public function del(){
       
-      $rs = $this->db->del("customer" , "id=".$this->param['id'] ) ;
+      $rs = $this->db->del("customer" , [ "id"=>$this->param['id'] ] ) ;
       
       if($rs==1){
         $this->back();
