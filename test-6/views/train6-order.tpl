@@ -70,7 +70,7 @@
           <td>{$data['id']}</td>
           <td>{$data['I_NAME']}</td>
           <td>{$data['C_NAME']}</td>
-          <td>{$data['update_time']}</td>
+          <td>{$data['create_time']}</td>
           <td>
           </td>
         </tr>

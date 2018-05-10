@@ -45,7 +45,8 @@ class Action
   public function Auth()
   {
 
-    $this->headers = apache_request_headers();
+    $this->headers = apache_request_headers();//apache
+    // $this->headers["Authorization"] = (isset($_SERVER["HTTP_AUTHORIZATION"]))? $_SERVER["HTTP_AUTHORIZATION"] : "" ;
     $login = $this->db->get("login", ["token" => $this->headers["Authorization"]]);
     switch (true) {
       case (!isset($login[0]["id"])):
@@ -140,7 +141,6 @@ class Action
 
   private function back($code = 200, $content = null)
   {
-    // $this->db->update("login", ["last_time" => date('Y-m-d H:i:s')], ["token" => $this->headers["Authorization"], "type" => "admin"]);
     echo json_encode(["code" => $code, "content" => $content]);
   }
 

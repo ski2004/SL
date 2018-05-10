@@ -40,7 +40,7 @@
         str += "<td>";
         str += "<button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-store-add.php?uid="+data["content"][i]["id"]+"\")\' >修改</button>" ;
         str += "&nbsp;  <button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-prod.php?store="+data["content"][i]["id"]+"\")\' >產品</button>" ;
-        str += "&nbsp;  <button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-order.php?store="+data["content"][i]["id"]+"\")\' >訂單</button>" ;
+        // str += "&nbsp;  <button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-order.php?store="+data["content"][i]["id"]+"\")\' >訂單</button>" ;
         str += "&nbsp;  <button type='button' class='btn btn-default btn-sm' onclick=\'del(\""+data["content"][i]["id"]+"\")\' >刪除</button>" ;
         str += "</td>";
         str += "</tr>" ;
