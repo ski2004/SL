@@ -27,13 +27,13 @@
     }
 
     function Logout(){
-      var url = 'login.php' ;
+      var url = 'login_store.php' ;
       switch(sessionStorage.getItem("type")){
         case ('customer'):
-        url = 'index.php' ;
+        url = 'login_customer.php' ;
         break;
         case ('sales'):
-        url = 'home.php' ;
+        url = 'login_admin.php' ;
         break;
       }
       sessionStorage.removeItem("token");

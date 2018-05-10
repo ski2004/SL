@@ -13,6 +13,9 @@
     function showView(res){
       var data = JSON.parse(res) ;
       errorCode(data["code"]) ;
+
+      status = ["???" , "已下單"] ;
+
       let view = new Array();
       for(var i in data["content"]){
         str = "<tr>" ;
@@ -55,10 +58,9 @@
           <th>###</th>
           <th>產品</th>
           <th>顧客</th>
-          <th>狀態</th>
           <th>最後異動時間</th>
           <th>
-            <button type="button" class="btn btn-default btn-sm" onclick="url('train6-order-add.php?prod={$prod}')">新增</button>
+            <!-- <button type="button" class="btn btn-default btn-sm" onclick="url('train6-order-add.php?prod={$prod}')">新增</button> -->
           </th>
         </tr>
       </thead>
@@ -66,9 +68,8 @@
         {foreach from=$usr item=data}
         <tr>
           <td>{$data['id']}</td>
-          <td>{$data['p_id']}</td>
-          <td>{$data['c_id']}</td>
-          <td>{$data['status']}</td>
+          <td>{$data['I_NAME']}</td>
+          <td>{$data['C_NAME']}</td>
           <td>{$data['update_time']}</td>
           <td>
           </td>

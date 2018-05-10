@@ -41,9 +41,9 @@
     // Authorization = data["token"] ;
     if(data["code"]===200) {
       sessionStorage.setItem("token",data["token"]);
-      sessionStorage.setItem("type","store");
+      sessionStorage.setItem("type","customer");
       sessionStorage.setItem("account",$('#account').val());
-      go("./train6-prod.php?store="+data["uid"]);
+      go("./train6-buy.php");
     }
   }
     

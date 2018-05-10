@@ -10,22 +10,7 @@
     function url(url){
       window.location = url;
     }
-    function del(uid){
-      var data = { 
-        action: 'del' ,
-        src:'items' ,
-        id: uid ,
-      }
-      sendAjax("train6-ajax.php" , data , finish );
-    }
-
-    function finish(res){
-      var data = JSON.parse(res) ;
-      errorCode(data["code"]) ;
-      reload();
-    }
-
-
+    var PID = 0 ;
 
     function showView(res){
       var data = JSON.parse(res) ;
@@ -36,7 +21,7 @@
         str += "<td>"+data["content"][i]['id']+"</td>" ;
         str += "<td>"+data["content"][i]['name']+"</td>" ;
         str += "<td>";
-        str += "<button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-prod-add.php?store={$store}&uid="+data["content"][i]["id"]+"\")\' >購買</button>" ;
+        str += "<button type='button' class='btn btn-default btn-sm' onclick=\'buy(\""+data["content"][i]["id"]+"\")\' >購買</button>" ;
         str += "</td>";
         str += "</tr>" ;
         view.push(str);
@@ -53,6 +38,39 @@
       }
       sendAjax("train6-ajax.php" , data , showView );      
     }
+
+    function byStore(id){
+      PID = id ;
+      if(PID=='0') {
+        list();
+        return ;
+      }  
+
+      var data = { 
+        action: 'get' ,
+        src:'items' ,
+        store_id:id ,
+      }
+      sendAjax("train6-ajax.php" , data , showView );      
+    }
+
+    function buy(id){
+      var data = { 
+        action: 'insert' ,
+        src:'orders' ,
+        c_id:"uid" ,
+        p_id:id ,
+      }
+      sendAjax("train6-ajax.php" , data , finish );      
+    }
+
+    function finish(res){
+      var data = JSON.parse(res) ;
+      errorCode(data["code"]) ;
+      
+    }
+
+
   </script>
 </head>
 <body>
@@ -67,7 +85,8 @@
         <th>名稱</th>
         <th>
           
-          <select name="" id="">
+          <select name="" id="" onchange="byStore(this.value)" >
+              <option value="0">全部</option>
               {foreach from=$info key=k item=v }
                 <option value="{$v['id']}">{$v['name']}</option>
               {/foreach }

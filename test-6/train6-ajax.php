@@ -92,7 +92,7 @@ class Action
       $uid = array_search("uid", $where);
       $where[$uid] = $this->usr["uid"];
     }
-  
+
     return $this->db->get($this->table, $where);
   }
 

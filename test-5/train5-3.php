@@ -30,12 +30,12 @@
       switch($this->param["action"]){
         case "insert":
           if(!$this->verify()) return ;
-          // if(!$this->verify_Identity()) return ;
+          if(!$this->verify_Identity()) return ;
           $this->insert();
         break;
         case "update":
           if(!$this->verify()) return ;
-          // if(!$this->verify_Identity()) return ;
+          if(!$this->verify_Identity()) return ;
           $this->update();
         break;
         case "del":
@@ -59,7 +59,7 @@
         }
       } 
 
-      $array = [ "name" => $this->param["name"] , "identity" => $this->param["identity"] , "birth" => $this->param["birth"] , "tel" => $this->param["tel"] , "post_code" => $this->param["post_code"] , "address" => $this->param["address"]  ] ;
+      $array = [ "name" => $this->param["name"] , "identity" => $this->param["identity"] , "birth" => $this->param["birth"] , "tel" => $this->param["tel"] , "post_code" => $this->param["post_code"] , "address" => $this->param["address"] , "password" => "123" , "account" => $this->param["name"]] ;
       
       $rs = $this->db->insert("customer" , $array ) ;
       

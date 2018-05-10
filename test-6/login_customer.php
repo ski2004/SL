@@ -11,10 +11,16 @@
     public $error;
     public function __construct()
     {
-      // $this->db = new MySql();
+      $this->db = new MySql();
       $this->tpl = new Smarty(); 
       $this->tpl->template_dir = "views" ;
       $this->tpl->compile_dir = "tmp" ;
+
+      $usr = $this->db->get("customer",[] , ["name","password"]);
+      foreach($usr as $v){
+        print_r($v);
+        echo "<br>" ;
+      }
     
       $this->tpl->display("login_customer.tpl");
     }

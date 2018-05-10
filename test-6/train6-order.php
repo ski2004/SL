@@ -18,18 +18,14 @@
       $this->verify();
       $prod = (isset($_GET["prod"]))? $_GET["prod"] : "0" ;
       $param = (isset($_GET["prod"]))? ["p_id"=>$prod] :[] ;
-      if(isset($_GET["store"])){
-        $PID = $this->getProd($_GET["store"]);
-        $sql = "SELECT * FROM orders WHERE p_id in (".join(",",$PID).")  ORDER BY id ASC " ;
-        $usr = $this->db->queryAll($sql);
-        // echo $sql ;
-      }else{
-        $usr = $this->db->get("orders" , $param) ;
-      }
-      
-      
 
+      $usr = $this->db->get("orders" , $param) ;
+    
+      $sql = "SELECT orders.* , customer.name as C_NAME, items.name as I_NAME FROM orders LEFT JOIN customer ON customer.id=orders.c_Id  LEFT JOIN items ON items.id=orders.p_id;"  ; 
+      $usr = $this->db->get_query($sql);
       
+    
+
       $this->tpl->assign("usr" , $usr); 
       $this->tpl->assign("prod" , $prod);
       $this->tpl->display("train6-order.tpl");

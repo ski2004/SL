@@ -34,11 +34,15 @@ class MySql
         return $arr;
     }
 
-    public function queryAll($sql){
+    public function get_query($sql){
         $rs = $this->db->prepare($sql);
         $rs->execute();
-        $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
-        return $rows ;
+        $res = $rs->get_result();
+        $data = [] ;
+        while($row = $res->fetch_assoc()){
+            $data[]=$row ;
+        }
+        return $data ;
     }
 
     public function get($table , $where=[] , $field=[]){

@@ -8,7 +8,7 @@
         </a>
       </div>
       <ul class="nav navbar-nav">
-        <li class=""><a href="./train6-home.php">店家列表</a></li>
+        <li class="home"><a href="./train6-home.php">店家列表</a></li>
         <!-- <li class=""><a href="./train6-prod.php">產品列表</a></li> -->
         <!-- <li class=""><a href="./train6-order.php">訂單列表</a></li> -->
         <li class=""><a href="" onclick="Logout()"  >登出</a></li>
@@ -23,6 +23,10 @@
 
 <script>
   $(document).ready(function(){
+    if(sessionStorage.getItem("type")==="customer"){
+      $('.home').hide();
+    }
+
     if(sessionStorage.getItem("account")===null){
       Logout();
     }else{

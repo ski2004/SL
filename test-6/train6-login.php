@@ -35,15 +35,15 @@ class Action
     $PAGE  =  $array[count($array)-1] ;
 
     switch( trim($PAGE) ){
-      case ("index.php"):
+      case ("login_customer.php"):
         $this->type = "customer" ;
         return true ;
       break;
-      case ("home.php"):
+      case ("login_admin.php"):
         $this->type = "sales" ;
         return true ;
       break;
-      case ("login.php"):
+      case ("login_store.php"):
         $this->type = "store" ;
         return true ;
       break;
