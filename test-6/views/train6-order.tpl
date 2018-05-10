@@ -58,9 +58,10 @@
           <th>###</th>
           <th>產品</th>
           <th>顧客</th>
+          <th>數量</th>
           <th>最後異動時間</th>
           <th>
-            <!-- <button type="button" class="btn btn-default btn-sm" onclick="url('train6-order-add.php?prod={$prod}')">新增</button> -->
+            <button type="button" class="btn btn-default btn-sm" onclick="history.go(-1)">上一頁</button>
           </th>
         </tr>
       </thead>
@@ -70,8 +71,10 @@
           <td>{$data['id']}</td>
           <td>{$data['I_NAME']}</td>
           <td>{$data['C_NAME']}</td>
+          <td>{$data['num']}</td>
           <td>{$data['create_time']}</td>
           <td>
+
           </td>
         </tr>
         {/foreach}

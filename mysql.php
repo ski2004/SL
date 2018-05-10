@@ -74,6 +74,7 @@ class MySql
         while($row = $res->fetch_assoc()){
             $data[]=$row ;
         }
+        $rs->close();
         return $data ;
     }
 

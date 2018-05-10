@@ -30,12 +30,25 @@
 
     public function insert($data=[]){
       
-      $file = fopen("test.txt","a+"); //開啟檔案
+      // $file = fopen("test.txt","a+"); //開啟檔案
+      // $this->encode($data);
+      // fwrite($file,join("__**__",$data).PHP_EOL);
+      // echo ftell($file);
+      // fclose($file);
+      $new = [] ;
+      $all = $this->get();
+      foreach($all as $k=>$v){
+        $this->encode($v);
+        $new[]= join("__**__",$v);
+      }
       $this->encode($data);
-      fwrite($file,join("__**__",$data).PHP_EOL);
+      $new[] = join("__**__",$data) ;
 
+      $file = fopen("test.txt","w+"); 
+
+      fwrite($file,join(PHP_EOL,$new));
       fclose($file);
-
+      
     }
 
     public function update($data=[]){
@@ -47,8 +60,8 @@
       $file = fopen("test.txt","w+"); 
 
       fwrite($file,join(PHP_EOL,$new));
-
       fclose($file);
+      
     }
 
     public function encode(&$data=[]){

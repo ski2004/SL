@@ -24,7 +24,7 @@
       $sql = "SELECT orders.* , customer.name as C_NAME, items.name as I_NAME FROM orders LEFT JOIN customer ON customer.id=orders.c_Id  LEFT JOIN items ON items.id=orders.p_id  WHERE orders.p_id=$prod "  ; 
       $usr = $this->db->get_query($sql);
       
-    print_r($sql);
+    
 
       $this->tpl->assign("usr" , $usr); 
       $this->tpl->assign("prod" , $prod);

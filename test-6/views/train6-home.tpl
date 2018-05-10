@@ -37,6 +37,7 @@
         str += "<td>"+data["content"][i]['name']+"</td>" ;
         str += "<td>"+data["content"][i]['account']+"</td>" ;
         str += "<td>"+data["content"][i]['password']+"</td>" ;
+        str += "<td>"+data["content"][i]['total']+"</td>" ;
         str += "<td>";
         str += "<button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-store-add.php?uid="+data["content"][i]["id"]+"\")\' >修改</button>" ;
         str += "&nbsp;  <button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-prod.php?store="+data["content"][i]["id"]+"\")\' >產品</button>" ;
@@ -53,7 +54,7 @@
 
     function list(){
       var data = { 
-        action: 'get' ,
+        action: 'getStoreOrder' ,
         src:'store' ,
         top_id: 'uid' ,
       }
@@ -73,6 +74,7 @@
         <th>名稱</th>
         <th>帳號</th>
         <th>密碼</th>
+        <th>累計銷售*10%</th>
         <th>
             <button type="button" class="btn btn-default btn-sm" onclick="url('train6-store-add.php')" >新增</button>
         </th>

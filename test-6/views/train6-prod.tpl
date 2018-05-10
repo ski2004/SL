@@ -35,6 +35,7 @@
         str = "<tr>" ;
         str += "<td>"+data["content"][i]['id']+"</td>" ;
         str += "<td>"+data["content"][i]['name']+"</td>" ;
+        str += "<td>"+data["content"][i]['price']+"</td>" ;
         str += "<td>";
         str += "<button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-prod-add.php?store={$store}&uid="+data["content"][i]["id"]+"\")\' >修改</button>" ;
         str += "&nbsp; <button type='button' class='btn btn-default btn-sm' onclick=\'url(\"train6-order.php?prod="+data["content"][i]["id"]+"\")\' >訂單</button>" ;
@@ -68,6 +69,7 @@
       <tr>
         <th>###</th>
         <th>名稱</th>
+        <th>單價</th>
         <th>
             <button type="button" id="btn-add" class="btn btn-default btn-sm" onclick="url('train6-prod-add.php?store={$store}')" >新增</button>
         </th>

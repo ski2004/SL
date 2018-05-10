@@ -67,7 +67,7 @@
     $now = 1 ;
     $row = 0 ;
     
-    while($now < $max){
+    while($now <= $max){
       $Data = ($d==$now)? "background-color:red" : ""  ;
       if($start==$row){
         $view[] = "<td style='border: 1px solid #ddd;padding:10px;".$Data."' >".$now."</td>" ;

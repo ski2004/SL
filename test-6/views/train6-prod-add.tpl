@@ -15,7 +15,8 @@
         src: 'items' ,
         id: "{$usr['id']}" ,
         store_id:"{$store}",
-        name: $('#name').val()
+        name: $('#name').val(),
+        price: $('#price').val(),
       }
       sendAjax("train6-ajax.php" , data , finish );
     }
@@ -47,6 +48,12 @@
             <input id="name" type="text" value="{$usr['name']}" >
         </td>
       </tr>
+      <tr>
+          <td>單價</td>
+          <td>
+              <input id="price" type="text" value="{$usr['price']}" >
+          </td>
+        </tr>      
     </tbody>
     <tfoot>
       <tr>

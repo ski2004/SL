@@ -20,8 +20,9 @@
         str = "<tr>" ;
         str += "<td>"+data["content"][i]['id']+"</td>" ;
         str += "<td>"+data["content"][i]['name']+"</td>" ;
+        str += "<td>"+data["content"][i]['price']+"</td>" ;
         str += "<td>";
-        str += "<button type='button' class='btn btn-default btn-sm' onclick=\'buy(\""+data["content"][i]["id"]+"\")\' >購買</button>" ;
+        str += "<button type='button' class='btn btn-default btn-sm' onclick=\'buy(\""+data["content"][i]["id"]+"\" )\' >購買</button>" ;
         str += "</td>";
         str += "</tr>" ;
         view.push(str);
@@ -83,6 +84,7 @@
       <tr>
         <th>###</th>
         <th>名稱</th>
+        <th>價格</th>
         <th>
           
           <select name="" id="" onchange="byStore(this.value)" >

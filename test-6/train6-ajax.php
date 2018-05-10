@@ -79,17 +79,35 @@ class Action
         $rs = $this->get();
         $this->back(201, $rs);
         break;
+      case "getStoreOrder":
+        if (!$this->verify()) return;
+        
+        $store = $this->db->get("store", ["top_id" => $this->usr["uid"]]);
+        
+        foreach ($store as $k => $v) {          
+          $store_id = $v["id"];
+          $items = $this->db->get_query("SELECT id,price FROM items WHERE store_id=$store_id "); 
+          $total = 0 ;
+          foreach ($items as $item) {
+            $res = $this->db->get_query("SELECT SUM(num) as total FROM orders WHERE p_id=".$item['id'] ); 
+            $total = $total + $res["0"]["total"] * $item["price"] ;
+          }          
+          $store[$k]["total"] = $total*0.1 ; 
+        }
+
+        $this->back(201, $store);
+        break;
       default:
     }
-    
+
 
   }
 
   public function get()
   {
     $where = $this->param;
-    
-    if(array_search("uid", $where)){
+
+    if (array_search("uid", $where)) {
       $uid = array_search("uid", $where);
       $where[$uid] = $this->usr["uid"];
     }
@@ -100,12 +118,12 @@ class Action
   public function insert()
   {
     $where = $this->param;
-    
-    if(array_search("uid", $where)){
+
+    if (array_search("uid", $where)) {
       $uid = array_search("uid", $where);
       $where[$uid] = $this->usr["uid"];
     }
-      $rs = $this->db->insert($this->table, $where);
+    $rs = $this->db->insert($this->table, $where);
 
     if ($rs == 1) {
       $this->back();
