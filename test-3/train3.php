@@ -28,15 +28,40 @@
     $POSITION =  array("萬","千","佰","拾","");
 
     $num = str_split($_POST["number"]) ;
-    $STR = "" ;
+    $STR = [] ;
     while(count($POSITION) !== count($num) ){
       array_shift($POSITION);
     }
+    $flag = true ;
     for($i=0 ; $i<count($num) ; $i++){
-      $number = ($num[$i] !== "0")? $CN[ $num[$i] ].$POSITION[$i] :  "" ;
-      $STR .= $number ;
+      if($num[$i] === "0" && $flag === true) continue ;
+
+      if($num[$i] !== "0" ){
+        $number = $CN[ $num[$i] ].$POSITION[$i] ;
+        $flag = false;
+      }else{
+        $number = $CN[ $num[$i] ] ;
+        $flag = true;
+      }
+      $STR[]= $number ;
     }
-    return  $STR ;
+    $flag = true ;
+    $new = $STR ;
+    for($i=count($new)-1 ; $i>=0 ; $i--){
+      if( $new[$i]== $CN[0] && $flag ===true ){
+        unset($STR[$i]) ;
+      }
+
+      if($new[$i]== $CN[0])
+        $flag = true ;
+      else
+        $flag = false ;
+    }
+
+
+
+
+    return  join("",$STR) ;
   }
 
 
