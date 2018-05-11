@@ -81,26 +81,27 @@ class Action
         break;
       case "getStoreOrder":
         if (!$this->verify()) return;
-        
-        $store = $this->db->get("store", ["top_id" => $this->usr["uid"]]);
-        
-        foreach ($store as $k => $v) {          
-          $store_id = $v["id"];
-          $items = $this->db->get_query("SELECT id,price FROM items WHERE store_id=$store_id "); 
-          $total = 0 ;
-          foreach ($items as $item) {
-            $res = $this->db->get_query("SELECT SUM(num) as total FROM orders WHERE p_id=".$item['id'] ); 
-            $total = $total + $res["0"]["total"] * $item["price"] ;
-          }          
-          $store[$k]["total"] = $total*0.1 ; 
-        }
-
-        $this->back(201, $store);
+        $this->getStoreOrder();
         break;
       default:
     }
+  }
 
+  public function getStoreOrder(){
+    $store = $this->db->get("store", ["top_id" => $this->usr["uid"]]);
+        
+    foreach ($store as $k => $v) {          
+      $store_id = $v["id"];
+      $items = $this->db->get("items", ["store_id" => $store_id ]);
+      $total = 0 ;
+      foreach ($items as $item) {
+        $res = $this->db->get_query("SELECT SUM(num) as total FROM orders WHERE p_id=".$item['id'] ); 
+        $total = $total + $res["0"]["total"] * $item["price"] ;
+      }          
+      $store[$k]["total"] = $total*0.1 ; 
+    }
 
+    $this->back(201, $store);
   }
 
   public function get()
